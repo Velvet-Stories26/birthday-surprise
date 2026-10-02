@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
-    tanstackStart({ server: { entry: "server" } }),
+    tanstackStart({ server: { entry: "server" }, prerender: { enabled: true } }),
     react(),
     tailwindcss(),
   ],
