@@ -1,26 +1,24 @@
-# Pixel Perfect Clone
+# Birthday Surprise
 
-Implement exactly the screenshot and nothing else
+A personal birthday experience with a photo story, interactive birthday cake, love letter, and shared dreams.
 
-This project was built with [Lovable](https://lovable.dev).
+## Run locally
 
-**Live app**: https://pixel-perfect-display-2271.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/d866cae2-698b-429a-bd4b-31617f10f3d8).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Requires Node.js 22.12 or later.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
+```
+
+## Personalize
+
+Edit names, dates, memories, the letter, reasons, and future plans in `src/lib/love-config.ts`. Replace the photos in `src/assets` to make the story your own.
+
+## Checks
+
+```sh
+npm test
+npm run lint
+npm run build
 ```
