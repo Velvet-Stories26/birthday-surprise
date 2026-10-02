@@ -120,24 +120,24 @@ function Birthday() {
 }
 
 function Story() {
-  return (
-    <section className="overflow-hidden px-3 py-12 sm:px-5 md:py-16">
-      <Reveal><Title>Our Story</Title></Reveal>
-      <div className="relative mx-auto mt-9 max-w-3xl md:mt-12">
-        <div className="absolute bottom-0 left-3 top-0 w-px bg-gold/65 min-[375px]:left-4 md:left-1/2" />
-        {LOVE.story.map((item, index) => (
-          <Reveal key={`${item.date}-${item.title}`} className={`relative mb-6 min-w-0 pl-9 min-[375px]:pl-12 md:mb-8 md:w-1/2 md:pl-0 ${index % 2 ? "md:ml-auto md:pl-10" : "md:pr-10 md:text-right"}`}>
-            <span className={`absolute left-0 top-5 grid h-6 w-6 place-items-center rounded-full border border-gold/70 bg-cream text-xs text-primary min-[375px]:left-1.5 ${index % 2 ? "md:-left-3" : "md:left-auto md:-right-3"}`} aria-hidden>✦</span>
-            <article className="h-full rounded-lg border border-gold/35 bg-card/90 p-4 shadow-soft min-[375px]:p-5 sm:p-6">
-              <p className="font-sans text-xs font-medium uppercase text-primary">{item.date}</p>
-              <h3 className="mt-2 font-serif text-xl font-semibold text-burgundy min-[375px]:text-2xl">{item.title}</h3>
-              <p className="mt-2 leading-relaxed text-muted-foreground">{item.text}</p>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
+  // return (
+  //   <section className="overflow-hidden px-3 py-12 sm:px-5 md:py-16">
+  //     <Reveal><Title>Our Story</Title></Reveal>
+  //     <div className="relative mx-auto mt-9 max-w-3xl md:mt-12">
+  //       <div className="absolute bottom-0 left-3 top-0 w-px bg-gold/65 min-[375px]:left-4 md:left-1/2" />
+  //       {LOVE.story.map((item, index) => (
+  //         <Reveal key={`${item.date}-${item.title}`} className={`relative mb-6 min-w-0 pl-9 min-[375px]:pl-12 md:mb-8 md:w-1/2 md:pl-0 ${index % 2 ? "md:ml-auto md:pl-10" : "md:pr-10 md:text-right"}`}>
+  //           <span className={`absolute left-0 top-5 grid h-6 w-6 place-items-center rounded-full border border-gold/70 bg-cream text-xs text-primary min-[375px]:left-1.5 ${index % 2 ? "md:-left-3" : "md:left-auto md:-right-3"}`} aria-hidden>✦</span>
+  //           <article className="h-full rounded-lg border border-gold/35 bg-card/90 p-4 shadow-soft min-[375px]:p-5 sm:p-6">
+  //             <p className="font-sans text-xs font-medium uppercase text-primary">{item.date}</p>
+  //             <h3 className="mt-2 font-serif text-xl font-semibold text-burgundy min-[375px]:text-2xl">{item.title}</h3>
+  //             <p className="mt-2 leading-relaxed text-muted-foreground">{item.text}</p>
+  //           </article>
+  //         </Reveal>
+  //       ))}
+  //     </div>
+  //   </section>
+  // );
 }
 
 function Gallery() {
@@ -164,7 +164,7 @@ function Gallery() {
   }, [idx, n]);
   return (
     <section className="overflow-hidden px-3 py-12 sm:px-5 md:py-16">
-      <Reveal><Title>OUR STORY</Title></Reveal>
+      <Reveal><Title>Our Story</Title></Reveal>
       <Reveal delay={100}>
         <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-lg italic leading-relaxed text-muted-foreground min-[375px]:text-xl md:text-2xl">
           From one little “Hi” to a story I never want to end. ❤️
@@ -175,7 +175,7 @@ function Gallery() {
           <Reveal key={i} delay={(i % 3) * 120}>
             <button onClick={() => setIdx(i)} className="group block w-full overflow-hidden rounded-xl border border-gold/30 bg-card p-2 pb-3 shadow-soft transition hover:-translate-y-1">
               <div className="overflow-hidden rounded-xl">
-                <img src={p.src} alt={p.caption} loading="lazy" width={1024} height={1024} className="aspect-square w-full object-cover transition duration-700 group-hover:scale-110" />
+                <img src={p.src} alt={p.caption} loading="lazy" className="h-auto w-full object-contain" />
               </div>
               <p className="mt-2 font-serif text-base italic text-burgundy md:text-lg">{p.caption}</p>
             </button>
