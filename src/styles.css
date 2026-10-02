@@ -34,31 +34,31 @@
 }
 
 :root {
-  --radius: 1rem;
-  --background: oklch(0.975 0.012 20);
-  --foreground: oklch(0.32 0.08 15);
-  --card: oklch(0.99 0.006 40);
-  --card-foreground: oklch(0.32 0.08 15);
-  --primary: oklch(0.62 0.14 10);
-  --primary-foreground: oklch(0.99 0.005 40);
-  --secondary: oklch(0.93 0.035 15);
-  --secondary-foreground: oklch(0.35 0.09 15);
-  --muted: oklch(0.95 0.02 20);
-  --muted-foreground: oklch(0.5 0.06 15);
-  --accent: oklch(0.88 0.06 10);
-  --accent-foreground: oklch(0.32 0.08 15);
-  --border: oklch(0.9 0.03 15);
-  --input: oklch(0.9 0.03 15);
-  --ring: oklch(0.62 0.14 10);
-  --blush: oklch(0.92 0.045 10);
-  --rose: oklch(0.7 0.13 8);
-  --cream: oklch(0.97 0.02 75);
-  --burgundy: oklch(0.36 0.11 15);
-  --gold: oklch(0.82 0.1 80);
-  --gradient-romance: linear-gradient(160deg, var(--cream), var(--blush) 55%, oklch(0.86 0.07 8));
-  --gradient-button: linear-gradient(135deg, var(--rose), var(--burgundy));
-  --shadow-soft: 0 20px 50px -20px color-mix(in oklab, var(--burgundy) 35%, transparent);
-  --shadow-glow: 0 0 30px color-mix(in oklab, var(--rose) 60%, transparent);
+  --radius: 0.75rem;
+  --background: oklch(0.975 0.012 75);
+  --foreground: oklch(0.29 0.045 25);
+  --card: oklch(0.995 0.006 80);
+  --card-foreground: oklch(0.29 0.045 25);
+  --primary: oklch(0.43 0.105 20);
+  --primary-foreground: oklch(0.99 0.008 82);
+  --secondary: oklch(0.94 0.025 75);
+  --secondary-foreground: oklch(0.34 0.065 25);
+  --muted: oklch(0.95 0.018 75);
+  --muted-foreground: oklch(0.48 0.035 30);
+  --accent: oklch(0.89 0.045 65);
+  --accent-foreground: oklch(0.29 0.045 25);
+  --border: oklch(0.88 0.028 70);
+  --input: oklch(0.88 0.028 70);
+  --ring: oklch(0.58 0.09 35);
+  --blush: oklch(0.93 0.035 35);
+  --rose: oklch(0.66 0.105 20);
+  --cream: oklch(0.975 0.02 82);
+  --burgundy: oklch(0.34 0.095 20);
+  --gold: oklch(0.77 0.095 75);
+  --gradient-romance: linear-gradient(145deg, oklch(0.99 0.008 80), var(--cream) 48%, oklch(0.95 0.035 35));
+  --gradient-button: linear-gradient(135deg, oklch(0.4 0.095 18), var(--burgundy));
+  --shadow-soft: 0 16px 38px -25px color-mix(in oklab, var(--burgundy) 32%, transparent);
+  --shadow-glow: 0 8px 22px -14px color-mix(in oklab, var(--burgundy) 40%, transparent);
 }
 
 @layer base {
@@ -82,14 +82,15 @@
 @utility btn-love {
   background: var(--gradient-button);
   color: var(--primary-foreground);
-  border-radius: 9999px;
-  padding: 0.9rem 2rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
+  border: 1px solid color-mix(in oklab, var(--gold) 55%, var(--burgundy));
+  border-radius: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0;
   box-shadow: var(--shadow-glow);
-  transition: transform 0.3s, box-shadow 0.3s;
-  animation: glow 2.6s ease-in-out infinite;
-  &:hover { transform: translateY(-2px) scale(1.03); }
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  &:hover { transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
 }
 
 @utility glass {
@@ -110,7 +111,7 @@
 @keyframes twinkle { 0%,100% { opacity: 0.1; transform: scale(.6);} 50% { opacity: 1; transform: scale(1);} }
 @keyframes flicker { 0%,100% { transform: scaleY(1) rotate(-2deg);} 50% { transform: scaleY(1.15) rotate(2deg);} }
 @keyframes smoke { to { transform: translateY(-40px) scale(2); opacity: 0; } }
-@keyframes pop { 0% { transform: scale(0); opacity: 0;} 70% { transform: scale(1.15);} 100% { transform: scale(1); opacity: 1;} }
+@keyframes pop { 0% { transform: translateY(10px); opacity: 0;} 100% { transform: translateY(0); opacity: 1;} }
 @keyframes wobble { 0%,100% { transform: rotate(0);} 25% { transform: rotate(-4deg);} 75% { transform: rotate(4deg);} }
 @keyframes burst { 0% { transform: translate(0,0) scale(.4); opacity: 1;} 100% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0;} }
 @keyframes confetti { 0% { transform: translateY(-10vh) rotate(0); } 100% { transform: translateY(110vh) rotate(720deg); } }
@@ -124,8 +125,12 @@
 .animate-burst { animation: burst 1.6s ease-out forwards; }
 .animate-confetti { animation: confetti linear forwards; }
 
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease, transform 1s ease; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.in { opacity: 1; transform: none; }
+
+@media (max-width: 767px) {
+  body { background-attachment: scroll; }
+}
 
 @media (max-width: 374px) {
   .btn-love { padding-inline: 1.25rem; font-size: 0.9rem; }

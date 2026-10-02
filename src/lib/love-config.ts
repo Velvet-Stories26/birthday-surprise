@@ -11,12 +11,13 @@ export const LOVE = {
   firstChat: "13/05/2025",
 
   story: [
-    { date: "13/05/2025", title: "The Day We Met", text: "[Replace with your story] The day our paths crossed and everything quietly began to change." },
-    { date: "13/05/2025", title: "Our First Conversation", text: "[Replace] A simple hello that turned into hours of talking, and I didn't want it to end." },
-    { date: "[Add date]", title: "Our First Special Memory", text: "[Replace] The first moment that felt like ours — I still smile every time I think of it." },
-    { date: "[Add date]", title: "When I Realized", text: "[Replace] The moment I knew you were someone truly, rarely special." },
-    { date: "[Add date]", title: "Our Favorite Memory", text: "[Replace] The day I'd live again and again if I could." },
-    { date: "02/10/2026", title: "Today", text: "Your birthday — and another chapter of us I get to celebrate." },
+    { date: "THE FIRST MESSAGE", title: "One Little “Hi”", text: "You texted me first, and a simple hello began a story I never want to end." },
+    { date: "TWO MONTHS LATER", title: "Finding Our Way Back", text: "I finally texted you back, and we picked up where that little hello left off." },
+    { date: "WHEN WE WERE READY", title: "We Shared How We Felt", text: "One day, we finally told each other how we felt." },
+    { date: "A SEASON OF WAITING", title: "Hoping for a Blessing", text: "We waited and hoped for our families' blessing." },
+    { date: "FIVE MONTHS LATER", title: "It Felt Like No Time Passed", text: "We talked again, and it felt like nothing had changed." },
+    { date: "THE DAY WE MET", title: "A Conversation, Face to Face", text: "After all those conversations, we finally met." },
+    { date: "EVERY DAY SINCE", title: "Still Choosing Each Other", text: "Still growing, still learning, still choosing each other." },
   ],
 
   // Replace `src` with your own photos (import them like the ones above).
@@ -41,16 +42,16 @@ export const LOVE = {
   ],
 
   vision: [
-    { question: "Which country do you dream of visiting with me first?", answer: "Maldives 🌴❤️" },
-    { question: "How will we solve our misunderstandings after marriage?", answer: "By talking to each other only. ❤️" },
-    { question: "What should we name our future home?", answer: "Sinas Home 🏡❤️" },
-    { question: "Which food did you buy for me first?", answer: "Shawarma 🌯❤️" },
-    { question: "Which adventure should we go on together?", answer: "Trekking 🌿❤️" },
-    { question: "What's the one thing we never forget to do before saying goodbye?", answer: "Love you ❤️" },
-    { question: "Which song feels like ‘us’?", answer: "Unakkage Poranthene Enathazhaga 🎵❤️", note: "Added by me ❤️" },
-    { question: "Which place would you take me again?", answer: "Udhayagiri 😅❤️", note: "Added by me ❤️" },
-    { question: "Which moment made you realize you loved me?", answer: "Whenever we fight. ❤️" },
-    { question: "Which promise should we keep forever?", answer: "I will never leave you. 🤍" },
+    { question: "Which country do you dream of visiting with me first?", answer: "Maldives. 🌴❤️" },
+    { question: "How will we solve our misunderstandings after marriage?", answer: "By talking to each other. ❤️" },
+    { question: "What should we name our future home?", answer: "Sina’s Home. 🏡❤️" },
+    { question: "Which food did you buy for me first?", answer: "Shawarma. 🌯❤️" },
+    { question: "Which adventure should we go on together?", answer: "Trekking. 🌿❤️" },
+    { question: "What’s the one thing we never forget to do before saying goodbye?", answer: "Say “I love you.” ❤️" },
+    { question: "Which song feels like “us”?", answer: "“Unakkage Poranthene Enathazhaga.” 🎵❤️", note: "Added by me ❤️" },
+    { question: "Which place would you take me to again?", answer: "Udhayagiri. 😅❤️", note: "Added by me ❤️" },
+    { question: "Which moment made you realize that you loved me?", answer: "Whenever we fight. ❤️" },
+    { question: "Which promise should we keep forever?", answer: "“I will never leave you.” 🤍" },
   ],
 
   reasons: [

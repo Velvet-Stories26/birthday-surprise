@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import hero from "@/assets/hero.jpg";
+import cakeVisual from "@/assets/bday_cake.png";
+import letterVisual from "@/assets/letter_backup.png";
 import { LOVE } from "@/lib/love-config";
-import { Confetti, FloatingHearts, HeartBurst, Reveal, Sparkles } from "@/components/love/Effects";
+import { Confetti, FloatingHearts, Reveal, Sparkles } from "@/components/love/Effects";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,7 +21,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Title({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-center font-script text-4xl leading-tight text-burgundy min-[375px]:text-5xl md:text-7xl">{children}</h2>;
+  return <h2 className="text-balance text-center font-script text-4xl leading-tight text-burgundy min-[375px]:text-5xl md:text-6xl">{children}</h2>;
 }
 
 function Index() {
@@ -30,7 +32,7 @@ function Index() {
   };
   return (
     <main className="relative">
-      <FloatingHearts />
+      <FloatingHearts count={10} />
       <Welcome onOpen={open} />
       {opened && (
         <div className="animate-fade-in relative z-10">
@@ -50,12 +52,12 @@ function Index() {
 
 function Welcome({ onOpen }: { onOpen: () => void }) {
   return (
-    <section className="relative z-10 flex min-h-[100svh] items-center justify-center overflow-hidden px-4 py-16 text-center sm:px-6">
+    <section className="relative z-10 flex min-h-[100svh] items-center justify-center overflow-hidden px-3 py-12 text-center sm:px-5 md:py-16">
       <img src={hero} alt="" width={1600} height={1008} className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-cream/60" />
-      <Sparkles />
+      <Sparkles count={18} />
       <div className="relative w-full max-w-2xl">
-        <h1 className="animate-pop font-script text-5xl leading-tight text-burgundy min-[375px]:text-6xl md:text-8xl">Hey, My Love ❤️</h1>
+        <h1 className="animate-pop whitespace-nowrap font-script text-3xl leading-tight text-burgundy min-[375px]:text-4xl md:text-7xl lg:text-8xl">Hey, My Love ❤️</h1>
         <p className="animate-fade-in mt-5 font-serif text-xl italic text-foreground min-[375px]:text-2xl md:mt-6 md:text-3xl" style={{ animationDelay: ".6s", animationFillMode: "both" }}>
           Today isn't just another day...
         </p>
@@ -69,57 +71,68 @@ function Welcome({ onOpen }: { onOpen: () => void }) {
 }
 
 function Birthday() {
-  const [blown, setBlown] = useState(false);
+  const candleCenters = [41.5, 46, 51, 55, 58];
+  const [blown, setBlown] = useState<boolean[]>(candleCenters.map(() => false));
+  const extinguish = (index: number) => setBlown((current) => current.map((value, i) => i === index || value));
+  const handleCandleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!event.detail) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const clickPosition = ((event.clientX - bounds.left) / bounds.width) * 100;
+    const nearestCandle = candleCenters.reduce((nearest, center, index) =>
+      Math.abs(center - clickPosition) < Math.abs(candleCenters[nearest]! - clickPosition) ? index : nearest, 0);
+    extinguish(nearestCandle);
+    event.stopPropagation();
+  };
   return (
-    <section id="birthday" className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-16 text-center sm:px-6 md:py-24">
+    <section id="birthday" className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-3 py-12 text-center sm:px-5 md:py-16">
       <Reveal>
-        <h2 className="font-script text-5xl leading-tight text-burgundy min-[375px]:text-6xl md:text-8xl">Happy Birthday, My Love ❤️</h2>
+        <h2 className="text-balance font-script text-2xl leading-tight text-burgundy min-[375px]:text-4xl md:text-7xl lg:text-8xl"><span className="block">Happy Birthday,</span><span className="block">My Love ❤️</span></h2>
         <p className="mx-auto mt-5 max-w-2xl font-serif text-lg leading-relaxed min-[375px]:text-xl md:mt-6 md:text-2xl">
           Happy Birthday to the person who makes my world brighter, my days happier, and my heart fuller. I'm so grateful for every moment, every conversation, every laugh, and every memory we've shared.
         </p>
       </Reveal>
-      <Reveal delay={200} className="mt-10 w-full md:mt-14">
-        <button onClick={() => setBlown(true)} aria-label="Blow out the candles" className="group relative mx-auto block">
-          <div className="flex justify-center gap-6 pb-1">
-            {[0, 1, 2].map((i) => (
-              <div key={i} className="relative flex flex-col items-center">
-                <div className="h-8 w-4">
-                  {!blown ? (
-                    <div className="animate-flicker mx-auto h-7 w-3.5 rounded-full bg-gold" style={{ boxShadow: "0 0 20px var(--gold)", borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%" }} />
-                  ) : (
-                    <div className="animate-smoke mx-auto h-4 w-4 rounded-full bg-muted-foreground/30" />
-                  )}
-                </div>
-                <div className="h-12 w-3 rounded-sm bg-cream ring-1 ring-rose/40" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent 0 4px, var(--blush) 4px 8px)" }} />
-              </div>
-            ))}
-          </div>
-          <div className="mx-auto h-14 w-44 rounded-t-2xl bg-blush shadow-soft min-[375px]:h-16 min-[375px]:w-56" />
-          <div className="mx-auto h-3 w-48 bg-cream min-[375px]:w-60" />
-          <div className="mx-auto h-18 w-56 rounded-b-2xl bg-rose shadow-soft min-[375px]:h-20 min-[375px]:w-72" />
-          <div className="mx-auto h-3 w-64 max-w-full rounded-full bg-burgundy/30 min-[375px]:w-80" />
-          {!blown && <p className="mt-4 text-sm text-muted-foreground">Tap the candles to blow them out 🕯️</p>}
-        </button>
+      <Reveal delay={200} className="mt-8 w-full md:mt-12">
+        <div className="relative mx-auto aspect-[4/3] w-full max-w-4xl" onClickCapture={handleCandleClick}>
+          <img src={cakeVisual} alt="Birthday cake with five lit candles" width={1456} height={1092} className="absolute inset-0 h-full w-full object-contain" />
+          {candleCenters.map((center, index) => (
+            <Fragment key={center}>
+              <button
+                type="button"
+                aria-label={`Blow out candle ${index + 1}`}
+                aria-pressed={blown[index]}
+                className="absolute top-[12%] z-10 h-[22%] min-h-11 w-[8%] min-w-11 -translate-x-1/2 cursor-pointer rounded-full bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
+                style={{ left: `${center}%` }}
+                onClick={() => extinguish(index)}
+              />
+              {blown[index] && (
+                <>
+                  <span className="pointer-events-none absolute top-[17%] z-20 h-[7%] w-[2.2%] -translate-x-1/2 rounded-full bg-[rgba(245,198,187,0.9)] blur-[2px]" style={{ left: `${center}%` }} aria-hidden />
+                  <span className="animate-smoke pointer-events-none absolute left-1/2 top-[14%] z-20 h-3 w-3 -translate-x-1/2 rounded-full bg-cream/70 blur-sm" style={{ left: `${center}%` }} aria-hidden />
+                </>
+              )}
+            </Fragment>
+          ))}
+        </div>
       </Reveal>
-       {blown && <p className="animate-pop mt-8 font-script text-4xl text-primary min-[375px]:text-5xl">Make a Wish, My Love ✨</p>}
+      {blown.every(Boolean) && <p className="animate-fade-in mt-8 font-script text-4xl text-primary min-[375px]:text-5xl">Make a Wish, My Love ✨</p>}
     </section>
   );
 }
 
 function Story() {
   return (
-    <section className="overflow-hidden px-4 py-16 sm:px-6 md:py-24">
-      <Reveal><Title>Our Story ❤️</Title></Reveal>
-      <div className="relative mx-auto mt-10 max-w-3xl md:mt-16">
-        <div className="absolute left-3 top-0 h-full w-px bg-rose/40 min-[375px]:left-4 md:left-1/2" />
-        {LOVE.story.map((s, i) => (
-          <Reveal key={i} className={`relative mb-8 pl-9 min-[375px]:pl-12 md:mb-12 md:w-1/2 md:pl-0 ${i % 2 ? "md:ml-auto md:pl-12" : "md:pr-12 md:text-right"}`}>
-            <span className={`absolute left-0 top-5 grid h-6 w-6 place-items-center rounded-full bg-primary text-xs text-primary-foreground min-[375px]:left-1.5 ${i % 2 ? "md:-left-3" : "md:left-auto md:-right-3"}`}>♥</span>
-            <div className="glass rounded-2xl p-4 shadow-soft transition hover:-translate-y-1 min-[375px]:p-5 sm:p-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-primary">{s.date}</p>
-              <h3 className="mt-1 font-serif text-xl font-semibold text-burgundy min-[375px]:text-2xl">{s.title}</h3>
-              <p className="mt-2 leading-relaxed text-muted-foreground">{s.text}</p>
-            </div>
+    <section className="overflow-hidden px-3 py-12 sm:px-5 md:py-16">
+      <Reveal><Title>Our Story</Title></Reveal>
+      <div className="relative mx-auto mt-9 max-w-3xl md:mt-12">
+        <div className="absolute bottom-0 left-3 top-0 w-px bg-gold/65 min-[375px]:left-4 md:left-1/2" />
+        {LOVE.story.map((item, index) => (
+          <Reveal key={`${item.date}-${item.title}`} className={`relative mb-6 min-w-0 pl-9 min-[375px]:pl-12 md:mb-8 md:w-1/2 md:pl-0 ${index % 2 ? "md:ml-auto md:pl-10" : "md:pr-10 md:text-right"}`}>
+            <span className={`absolute left-0 top-5 grid h-6 w-6 place-items-center rounded-full border border-gold/70 bg-cream text-xs text-primary min-[375px]:left-1.5 ${index % 2 ? "md:-left-3" : "md:left-auto md:-right-3"}`} aria-hidden>✦</span>
+            <article className="h-full rounded-lg border border-gold/35 bg-card/90 p-4 shadow-soft min-[375px]:p-5 sm:p-6">
+              <p className="font-sans text-xs font-medium uppercase text-primary">{item.date}</p>
+              <h3 className="mt-2 font-serif text-xl font-semibold text-burgundy min-[375px]:text-2xl">{item.title}</h3>
+              <p className="mt-2 leading-relaxed text-muted-foreground">{item.text}</p>
+            </article>
           </Reveal>
         ))}
       </div>
@@ -129,7 +142,16 @@ function Story() {
 
 function Gallery() {
   const [idx, setIdx] = useState<number | null>(null);
-  const n = LOVE.photos.length;
+  const photos = [
+    { src: new URL("../assets/first-image.png", import.meta.url).href, caption: "You texted me first... just a simple “Hi.” ❤️" },
+    { src: new URL("../assets/second-image.png", import.meta.url).href, caption: "Two months later, I finally texted you back. ❤️" },
+    { src: new URL("../assets/third_image.png", import.meta.url).href, caption: "One day, we finally told each other how we felt. ❤️" },
+    { src: new URL("../assets/fourth_image.png", import.meta.url).href, caption: "Then came the waiting... while we hoped for our families' blessing." },
+    { src: new URL("../assets/fifth_image.png", import.meta.url).href, caption: "Five months later, we talked again... and it felt like nothing had changed. ❤️" },
+    { src: new URL("../assets/sixth-image.png", import.meta.url).href, caption: "After all those conversations, we finally met. ❤️" },
+    { src: new URL("../assets/seventh-image.png", import.meta.url).href, caption: "Still growing, still learning, still choosing each other. ❤️" },
+  ];
+  const n = photos.length;
   useEffect(() => {
     if (idx === null) return;
     const k = (e: KeyboardEvent) => {
@@ -141,12 +163,17 @@ function Gallery() {
     return () => window.removeEventListener("keydown", k);
   }, [idx, n]);
   return (
-    <section className="overflow-hidden px-4 py-16 sm:px-6 md:py-24">
-      <Reveal><Title>Little Moments, Big Memories 📸</Title></Reveal>
+    <section className="overflow-hidden px-3 py-12 sm:px-5 md:py-16">
+      <Reveal><Title>OUR STORY</Title></Reveal>
+      <Reveal delay={100}>
+        <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-lg italic leading-relaxed text-muted-foreground min-[375px]:text-xl md:text-2xl">
+          From one little “Hi” to a story I never want to end. ❤️
+        </p>
+      </Reveal>
       <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 min-[360px]:grid-cols-2 md:mt-14 md:grid-cols-3 md:gap-6">
-        {LOVE.photos.map((p, i) => (
+        {photos.map((p, i) => (
           <Reveal key={i} delay={(i % 3) * 120}>
-            <button onClick={() => setIdx(i)} className="group block w-full overflow-hidden rounded-2xl bg-card p-2 pb-3 shadow-soft transition hover:-translate-y-1 hover:rotate-1">
+            <button onClick={() => setIdx(i)} className="group block w-full overflow-hidden rounded-xl border border-gold/30 bg-card p-2 pb-3 shadow-soft transition hover:-translate-y-1">
               <div className="overflow-hidden rounded-xl">
                 <img src={p.src} alt={p.caption} loading="lazy" width={1024} height={1024} className="aspect-square w-full object-cover transition duration-700 group-hover:scale-110" />
               </div>
@@ -159,10 +186,10 @@ function Gallery() {
         <div className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center bg-burgundy/85 p-4 backdrop-blur" onClick={() => setIdx(null)}>
           <button className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center text-3xl text-cream sm:right-5 sm:top-5" aria-label="Close">✕</button>
           <button className="absolute left-1 z-10 grid h-12 w-10 place-items-center text-4xl text-cream sm:left-3 md:left-8" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setIdx((idx - 1 + n) % n); }}>‹</button>
-          {LOVE.photos[idx] ? (
-            <figure className="animate-scale-in max-w-[calc(100vw-5rem)] text-center sm:max-w-3xl" onClick={(e) => e.stopPropagation()}>
-              <img src={LOVE.photos[idx].src} alt={LOVE.photos[idx].caption} className="max-h-[72svh] w-auto rounded-2xl object-contain shadow-soft sm:max-h-[78vh]" />
-              <figcaption className="mt-4 font-script text-3xl text-cream sm:text-4xl">{LOVE.photos[idx].caption}</figcaption>
+          {photos[idx] ? (
+            <figure className="animate-scale-in w-full max-w-[calc(100vw-5rem)] text-center sm:max-w-3xl" onClick={(e) => e.stopPropagation()}>
+              <img src={photos[idx].src} alt={photos[idx].caption} className="mx-auto max-h-[70svh] max-w-full rounded-xl object-contain shadow-soft sm:max-h-[78vh] sm:rounded-2xl" />
+              <figcaption className="mt-4 text-balance font-script text-3xl text-cream sm:text-4xl">{photos[idx].caption}</figcaption>
             </figure>
           ) : null}
           <button className="absolute right-1 z-10 grid h-12 w-10 place-items-center text-4xl text-cream sm:right-3 md:right-8" aria-label="Next" onClick={(e) => { e.stopPropagation(); setIdx((idx + 1) % n); }}>›</button>
@@ -175,21 +202,20 @@ function Gallery() {
 function Letter() {
   const [open, setOpen] = useState(false);
   return (
-    <section className="overflow-hidden px-4 py-16 sm:px-6 md:py-24">
-      <Reveal><Title>A Little Letter For You 💌</Title></Reveal>
-      {!open && <p className="mx-auto mt-4 max-w-xl text-center font-serif text-lg italic text-muted-foreground min-[375px]:text-xl">There's something I want you to read...</p>}
-      {!open ? (
-        <Reveal className="mt-8 md:mt-12">
-          <button onClick={() => setOpen(true)} className="group relative mx-auto block h-44 w-full max-w-72 min-[375px]:h-48 md:h-56 md:max-w-96" aria-label="Open My Letter">
-            <div className="absolute inset-0 rounded-lg bg-blush shadow-soft transition duration-500 group-hover:-translate-y-1" />
-            <div className="absolute inset-x-0 top-0 h-1/2 origin-top bg-rose transition-transform duration-500 group-hover:-rotate-x-6" style={{ clipPath: "polygon(0 0,100% 0,50% 100%)" }} />
-            <div className="absolute inset-x-0 bottom-0 h-full bg-accent" style={{ clipPath: "polygon(0 100%,50% 45%,100% 100%)" }} />
-            <span className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-burgundy text-xl text-cream shadow-soft">♥</span>
-          </button>
-          <div className="mt-7 text-center"><button onClick={() => setOpen(true)} className="btn-love min-h-12 max-w-full">Open My Letter 💌</button></div>
-        </Reveal>
-      ) : (
-        <article className="animate-scale-in mx-auto mt-10 w-full max-w-2xl rounded-2xl bg-cream px-5 py-8 shadow-soft min-[375px]:px-6 sm:px-10 sm:py-10 md:mt-14 md:px-12 md:py-12">
+    <section className="overflow-hidden px-3 py-12 sm:px-5 md:py-16">
+      {!open && (
+        <div className="relative mx-auto w-full max-w-5xl">
+          <img src={letterVisual} alt="Cream envelope sealed with a golden heart" width={1657} height={903} className="block h-auto w-full object-contain" />
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Open the sealed love letter"
+            className="absolute left-1/2 top-[65%] aspect-square w-[18%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
+          />
+        </div>
+      )}
+      {open && (
+        <article className="animate-fade-in mx-auto mt-8 w-full max-w-2xl rounded-lg border border-gold/35 bg-card px-5 py-7 shadow-soft min-[375px]:px-6 sm:px-10 sm:py-9 md:mt-10 md:px-12 md:py-11">
           <div className="mb-3 text-center text-lg text-rose" aria-hidden>♥</div>
           <p className="font-script text-4xl text-burgundy min-[375px]:text-5xl">My Love,</p>
           {LOVE.letter.map((p, i) => (
@@ -205,30 +231,38 @@ function Letter() {
 
 function Vision() {
   return (
-    <section className="overflow-hidden bg-blush/35 px-4 py-16 sm:px-6 md:py-24">
-      <Reveal><Title>Our Vision ❤️</Title></Reveal>
-      <Reveal delay={100}>
-        <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-lg italic leading-relaxed text-muted-foreground min-[375px]:text-xl md:text-2xl">
-          Do you remember you told me we would achieve these dreams together?
-        </p>
-      </Reveal>
-      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 md:mt-14 md:grid-cols-2 md:gap-6">
-        {LOVE.vision.map((item, i) => (
-          <Reveal key={item.question} delay={(i % 2) * 100}>
-            <article className="relative h-full overflow-hidden rounded-2xl bg-cream p-5 shadow-soft min-[375px]:p-6 sm:p-7">
-              <span className="absolute right-4 top-3 font-script text-2xl text-rose/30" aria-hidden>♥</span>
-              <p className="pr-6 font-serif text-base italic leading-relaxed text-muted-foreground min-[375px]:text-lg">{i + 1}. {item.question}</p>
-              <p className="mt-4 font-serif text-xl font-semibold leading-snug text-burgundy min-[375px]:text-2xl">{item.answer}</p>
-              {item.note && <p className="mt-3 text-sm italic text-primary">{item.note}</p>}
-            </article>
-          </Reveal>
-        ))}
+    <section className="relative isolate overflow-hidden px-3 py-14 sm:px-5 md:py-20">
+      <img src={hero} alt="" loading="lazy" className="absolute inset-0 -z-20 h-full w-full object-cover" />
+      <div className="absolute inset-0 -z-10 bg-cream/70" />
+      <div className="relative mx-auto max-w-6xl">
+        <Reveal>
+          <p className="text-center font-sans text-xs font-medium uppercase tracking-[0.18em] text-primary sm:text-sm">A future, imagined together</p>
+          <h2 className="mt-3 text-balance text-center font-serif text-3xl font-medium text-burgundy min-[375px]:text-4xl md:text-5xl">Our Vision</h2>
+        </Reveal>
+        <Reveal delay={100}>
+          <p className="mx-auto mt-4 max-w-2xl text-center font-serif text-lg italic leading-relaxed text-muted-foreground min-[375px]:text-xl md:text-2xl">
+            Do you remember you told me we would achieve these dreams together?
+          </p>
+        </Reveal>
+        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-3 sm:mt-10 sm:gap-4 md:grid-cols-2 md:gap-5">
+          {LOVE.vision.map((item, i) => (
+            <Reveal key={item.question} delay={(i % 2) * 80}>
+              <article className="h-full min-w-0 rounded-lg border border-gold/45 bg-cream/92 px-5 py-5 shadow-soft sm:px-7 sm:py-6">
+                <p className="font-sans text-xs font-medium uppercase tracking-[0.16em] text-primary">{String(i + 1).padStart(2, "0")} <span className="text-gold">/</span> 10</p>
+                <h3 className="mt-3 font-serif text-base italic leading-relaxed text-muted-foreground min-[375px]:text-lg">{item.question}</h3>
+                <div className="my-4 h-px w-12 bg-gold" />
+                <p className="break-words font-serif text-xl font-semibold leading-snug text-burgundy min-[375px]:text-2xl">{item.answer}</p>
+                {item.note && <p className="mt-3 font-serif text-sm italic text-primary">{item.note}</p>}
+              </article>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="mx-auto mt-10 max-w-3xl text-center md:mt-14">
+          <p className="font-script text-3xl leading-relaxed text-burgundy min-[375px]:text-4xl md:text-5xl">
+            These are the little things we once talked about... and I hope one day, we can look back and say — we did it all together. ❤️
+          </p>
+        </Reveal>
       </div>
-      <Reveal className="mx-auto mt-12 max-w-3xl text-center md:mt-16">
-        <p className="font-script text-3xl leading-relaxed text-burgundy min-[375px]:text-4xl md:text-5xl">
-          These are the little things we once talked about... and I hope one day, we can look back and say — we did it all together. ❤️
-        </p>
-      </Reveal>
     </section>
   );
 }
@@ -237,19 +271,19 @@ function Reasons() {
   const [count, setCount] = useState(1);
   const done = count >= LOVE.reasons.length;
   return (
-    <section className="overflow-hidden px-4 py-16 sm:px-6 md:py-24">
+    <section className="overflow-hidden px-3 py-12 sm:px-5 md:py-16">
       <Reveal><Title>Reasons Why I Love You ❤️</Title></Reveal>
       <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2 md:mt-14">
         {LOVE.reasons.slice(0, count).map((r, i) => (
-          <div key={i} className="animate-pop glass min-w-0 rounded-2xl px-5 py-4 shadow-soft min-[375px]:px-6 min-[375px]:py-5">
-            <span className="mr-2 font-script text-3xl text-primary">{i + 1}.</span>
+          <div key={i} className="animate-fade-in flex min-w-0 items-baseline gap-3 rounded-lg border border-gold/35 bg-card/90 px-5 py-4 shadow-soft min-[375px]:px-6">
+            <span className="font-serif text-sm tabular-nums text-primary">{String(i + 1).padStart(2, "0")}</span>
             <span className="font-serif text-lg text-burgundy min-[375px]:text-xl">{r}</span>
           </div>
         ))}
       </div>
       <div className="mt-10 text-center">
         {done ? (
-          <p className="font-script text-3xl text-primary">…and a million more ♥</p>
+          <p className="font-script text-3xl text-primary">…and a million more</p>
         ) : (
           <button className="btn-love" onClick={() => setCount((c) => c + 1)}>Show Me Another Reason</button>
         )}
@@ -261,25 +295,24 @@ function Reasons() {
 function Gift() {
   const [open, setOpen] = useState(false);
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-16 text-center sm:px-6 md:py-24">
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-3 py-12 text-center sm:px-5 md:py-16">
       <Reveal><Title>One Last Surprise... 🎁</Title></Reveal>
       {open && <Confetti />}
       {!open ? (
         <Reveal className="mt-14">
-          <button onClick={() => setOpen(true)} className="animate-wobble relative block" aria-label="Open the gift">
-             <div className="relative mx-auto h-10 w-48 rounded-md bg-burgundy shadow-soft min-[375px]:w-56">
-              <div className="absolute inset-y-0 left-1/2 w-6 -translate-x-1/2 bg-gold" />
-              <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-5xl text-gold">🎀</span>
+           <button onClick={() => setOpen(true)} className="relative block transition-transform duration-300 hover:-translate-y-1" aria-label="Open the gift">
+             <div className="relative mx-auto h-8 w-44 rounded-sm bg-burgundy shadow-soft min-[375px]:w-52">
+              <div className="absolute inset-y-0 left-1/2 w-5 -translate-x-1/2 bg-gold" />
+              <span className="absolute -top-7 left-1/2 -translate-x-1/2 text-4xl text-gold">🎀</span>
             </div>
-             <div className="relative mx-auto h-36 w-40 rounded-b-md bg-rose shadow-soft min-[375px]:h-40 min-[375px]:w-48">
-              <div className="absolute inset-y-0 left-1/2 w-6 -translate-x-1/2 bg-gold" />
+             <div className="relative mx-auto h-32 w-36 rounded-b-sm bg-rose shadow-soft min-[375px]:h-36 min-[375px]:w-44">
+              <div className="absolute inset-y-0 left-1/2 w-5 -translate-x-1/2 bg-gold" />
             </div>
           </button>
           <p className="mt-6 text-sm text-muted-foreground">Tap to open</p>
         </Reveal>
       ) : (
         <div className="relative mt-14 max-w-2xl">
-          <HeartBurst />
            <p className="animate-pop relative font-serif text-xl leading-relaxed text-burgundy min-[375px]:text-2xl md:text-3xl">
             You are my favorite person, my happiest memory, and one of the most beautiful parts of my life. ❤️
           </p>
@@ -294,12 +327,12 @@ function Gift() {
 
 function Final({ onReplay }: { onReplay: () => void }) {
   return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-4 py-16 text-center sm:px-6">
+    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-3 py-12 text-center sm:px-5 md:py-16">
       <img src={hero} alt="" loading="lazy" width={1600} height={1008} className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-burgundy/55" />
       <Sparkles />
       <Reveal className="relative max-w-2xl text-cream">
-        <h2 className="font-script text-5xl leading-tight min-[375px]:text-6xl md:text-8xl">Happy Birthday, My Love ❤️</h2>
+        <h2 className="text-balance font-script text-2xl leading-tight min-[375px]:text-4xl md:text-7xl lg:text-8xl"><span className="block">Happy Birthday,</span><span className="block">My Love ❤️</span></h2>
         <p className="mt-5 font-serif text-lg leading-relaxed min-[375px]:text-xl md:mt-6 md:text-2xl">
           Here's to another year of your beautiful smile, your dreams, your happiness, and hopefully many more memories together.
         </p>
