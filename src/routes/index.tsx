@@ -114,7 +114,7 @@ function Birthday() {
           ))}
         </div>
       </Reveal>
-      {blown.every(Boolean) && <p className="animate-fade-in mt-8 font-script text-4xl text-primary min-[375px]:text-5xl">Make a Wish, My Love ✨</p>}
+      {blown.every(Boolean) && <p className="animate-fade-in mt-8 font-script text-2xl text-primary min-[375px]:text-2xl">Make a Wish, My Love ✨</p>}
     </section>
   );
 }
@@ -170,7 +170,7 @@ function Gallery() {
           From one little “Hi” to a story I never want to end. ❤️
         </p>
       </Reveal>
-      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 min-[360px]:grid-cols-2 md:mt-14 md:grid-cols-3 md:gap-6">
+      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 md:mt-14 md:grid-cols-3 md:gap-6">
         {photos.map((p, i) => (
           <Reveal key={i} delay={(i % 3) * 120}>
             <button onClick={() => setIdx(i)} className="group block w-full overflow-hidden rounded-xl border border-gold/30 bg-card p-2 pb-3 shadow-soft transition hover:-translate-y-1">
