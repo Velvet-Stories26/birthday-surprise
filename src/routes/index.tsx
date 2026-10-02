@@ -159,8 +159,8 @@ function Gallery() {
           <button className="absolute right-5 top-5 text-3xl text-cream" aria-label="Close">✕</button>
           <button className="absolute left-3 text-4xl text-cream md:left-8" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setIdx((idx - 1 + n) % n); }}>‹</button>
           <figure className="animate-scale-in max-w-3xl text-center" onClick={(e) => e.stopPropagation()}>
-            <img src={LOVE.photos[idx].src} alt={LOVE.photos[idx].caption} className="max-h-[78vh] rounded-2xl object-contain shadow-soft" />
-            <figcaption className="mt-4 font-script text-4xl text-cream">{LOVE.photos[idx].caption}</figcaption>
+            <img src={LOVE.photos[idx]!.src} alt={LOVE.photos[idx]!.caption} className="max-h-[78vh] rounded-2xl object-contain shadow-soft" />
+            <figcaption className="mt-4 font-script text-4xl text-cream">{LOVE.photos[idx]!.caption}</figcaption>
           </figure>
           <button className="absolute right-3 text-4xl text-cream md:right-8" aria-label="Next" onClick={(e) => { e.stopPropagation(); setIdx((idx + 1) % n); }}>›</button>
         </div>

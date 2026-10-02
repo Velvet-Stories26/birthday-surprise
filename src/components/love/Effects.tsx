@@ -84,7 +84,7 @@ const CONFETTI_COLORS = ["var(--rose)", "var(--blush)", "var(--gold)", "var(--bu
 export function Confetti() {
   const [pieces, setPieces] = useState<{ l: number; d: number; delay: number; c: string; w: number }[]>([]);
   useEffect(() => {
-    setPieces(Array.from({ length: 90 }, (_, i) => ({ l: Math.random() * 100, d: 2.5 + Math.random() * 2.5, delay: Math.random() * 0.8, c: CONFETTI_COLORS[i % 5], w: 6 + Math.random() * 6 })));
+    setPieces(Array.from({ length: 90 }, (_, i) => ({ l: Math.random() * 100, d: 2.5 + Math.random() * 2.5, delay: Math.random() * 0.8, c: CONFETTI_COLORS[i % 5]!, w: 6 + Math.random() * 6 })));
   }, []);
   return (
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden" aria-hidden>
