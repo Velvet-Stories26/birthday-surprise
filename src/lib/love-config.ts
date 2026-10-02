@@ -34,10 +34,23 @@ export const LOVE = {
 
   letter: [
     "On your special day, I just want you to know how incredibly special you are to me.",
-    "Thank you for being part of my life, for all the little moments that became my favorite memories, and for making ordinary days feel extraordinary.",
-    "I hope this new year of your life brings you everything your heart wishes for.",
-    "No matter where life takes us, I will always cherish the memories we've created together.",
+    "Thank you for all the little moments, the conversations, the laughs, the fights, the memories, and everything in between that has made our journey so special.",
+    "I hope this new year of your life brings you happiness, success, beautiful moments, and everything your heart wishes for.",
+    "No matter where life takes us, I want us to keep choosing each other, understanding each other, and growing together.",
     "Happy Birthday, my love. ❤️",
+  ],
+
+  vision: [
+    { question: "Which country do you dream of visiting with me first?", answer: "Maldives 🌴❤️" },
+    { question: "How will we solve our misunderstandings after marriage?", answer: "By talking to each other only. ❤️" },
+    { question: "What should we name our future home?", answer: "Sinas Home 🏡❤️" },
+    { question: "Which food did you buy for me first?", answer: "Shawarma 🌯❤️" },
+    { question: "Which adventure should we go on together?", answer: "Trekking 🌿❤️" },
+    { question: "What's the one thing we never forget to do before saying goodbye?", answer: "Love you ❤️" },
+    { question: "Which song feels like ‘us’?", answer: "Unakkage Poranthene Enathazhaga 🎵❤️", note: "Added by me ❤️" },
+    { question: "Which place would you take me again?", answer: "Udhayagiri 😅❤️", note: "Added by me ❤️" },
+    { question: "Which moment made you realize you loved me?", answer: "Whenever we fight. ❤️" },
+    { question: "Which promise should we keep forever?", answer: "I will never leave you. 🤍" },
   ],
 
   reasons: [
